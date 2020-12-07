@@ -30,10 +30,21 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+" theme
+syntax on
+colorscheme monokai
+
+" NERDtree
+" Stick this in your vimrc to open NERDTree with Ctrl+n (you can set whatever key you want):
+map <C-n> :NERDTreeToggle<CR>
+
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
+
+" vim-monokai
+Plug 'crusoexia/vim-monokai'
 
 " fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -53,9 +64,13 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " markdown-preview.nvim
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
+" nerdtree
+Plug 'preservim/nerdtree'
+
 " Initialize plugin system
 call plug#end()
 
+" settigns for gopls
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
@@ -76,8 +91,23 @@ command! LspDebug let lsp_log_verbose=1 | let lsp_log_file = expand('~/lsp.log')
 
 let g:lsp_diagnostics_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
+
+" settings for asynccomplete
 let g:asyncomplete_auto_popup = 1
+function! s:check_back_space() abort
+	    let col = col('.') - 1
+	    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+	  \ pumvisible() ? "\<C-n>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"<buffer>
+
 let g:asyncomplete_auto_completeopt = 0
+set completeopt=menuone,noinsert,noselect,preview
+
 let g:asyncomplete_popup_delay = 200
 let g:lsp_text_edit_enabled = 1
 let g:lsp_preview_float = 1
@@ -105,7 +135,6 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-set completeopt+=menuone
 
 let s:clip = '/mnt/c/Windows/System32/clip.exe' 
 if executable(s:clip)
