@@ -30,9 +30,18 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 
+" cursol
+let &t_SI .= "\e[5 q"
+let &t_EI .= "\e[1 q"
+
 " theme
 syntax on
 colorscheme monokai
+
+" Mac clipboard
+"set clipboard+=unnamed
+" Linux Clipboard 
+set clipboard+=usunamedplus
 
 " NERDtree
 " Stick this in your vimrc to open NERDTree with Ctrl+n (you can set whatever key you want):
@@ -66,6 +75,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " nerdtree
 Plug 'preservim/nerdtree'
+
+" vim-goimports
+Plug 'mattn/vim-goimports'
 
 " Initialize plugin system
 call plug#end()
