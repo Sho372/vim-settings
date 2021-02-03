@@ -34,6 +34,12 @@ let g:lightline = {
 let &t_SI .= "\e[5 q"
 let &t_EI .= "\e[1 q"
 
+" shell
+"set shell=/usr/bin/zsh
+
+" terminal-normal mode
+tnoremap <Esc> <C-\><C-n>
+
 " theme
 syntax on
 colorscheme monokai
