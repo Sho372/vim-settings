@@ -12,7 +12,6 @@ set hlsearch
 set ignorecase
 set smartcase
 set incsearch
-
 " tab
 set showtabline=2
 
@@ -24,6 +23,9 @@ set wildmenu
 
 set cursorline
 set noshowmode
+
+" enable edit on terminal
+set modifiable
 
 " lightline
 let g:lightline = {
