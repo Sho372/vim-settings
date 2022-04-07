@@ -180,3 +180,21 @@ map! <silent> <C-r>= :r !powershell.exe -Command Get-Clipboard<CR>
 
 " I thought this will be better :)
 noremap "+p :exe 'norm a'.system('/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -Command Get-Clipboard')<CR>
+
+"タブ、空白、改行の可視化
+set list
+set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+
+"全角スペースをハイライト表示
+function! zenkakuspace()
+    highlight zenkakuspace cterm=reverse ctermfg=darkmagenta gui=reverse guifg=darkmagenta
+endfunction
+   
+if has('syntax')
+    augroup zenkakuspace
+        autocmd!
+        autocmd colorscheme       * call zenkakuspace()
+        autocmd vimenter,winenter * match zenkakuspace /　/
+    augroup end
+    call zenkakuspace()
+endif
