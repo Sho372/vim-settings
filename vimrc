@@ -53,6 +53,15 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" Leader key
+let mapleader = "\<Space>"
+
+" Leader mapping"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>q! :q!<CR>
+nmap <Leader>v <C-v>
+
 " theme
 syntax on
 colorscheme monokai
@@ -106,11 +115,11 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <C-]> <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> gh <plug>(lsp-hover)
+  nmap <buffer> gi <plug>(lsp-implementation)
   nmap <buffer> <f2> <plug>(lsp-rename)
-  nmap <buffer> <Leader>d <plug>(lsp-type-definition)
-  nmap <buffer> <Leader>r <plug>(lsp-references)
-  nmap <buffer> <Leader>i <plug>(lsp-implementation)
   inoremap <expr> <cr> pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
 endfunction
 
@@ -186,15 +195,15 @@ set list
 set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
 
 "全角スペースをハイライト表示
-function! zenkakuspace()
+function! Zenkakuspace()
     highlight zenkakuspace cterm=reverse ctermfg=darkmagenta gui=reverse guifg=darkmagenta
 endfunction
-   
+
 if has('syntax')
-    augroup zenkakuspace
+    augroup Zenkakuspace
         autocmd!
-        autocmd colorscheme       * call zenkakuspace()
-        autocmd vimenter,winenter * match zenkakuspace /　/
+        autocmd colorscheme       * call Zenkakuspace()
+        autocmd vimenter,winenter * match Zenkakuspace /　/
     augroup end
-    call zenkakuspace()
+    call Zenkakuspace()
 endif
